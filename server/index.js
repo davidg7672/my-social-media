@@ -8,7 +8,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
-// import { register } from "module";
+import authRoutes from "./routes/auth.js";
 import { register } from "./controllers/auth.js";
 dotenv.config();
 
@@ -41,6 +41,9 @@ const upload = multer({ storage });
 
 // routes with files
 app.post("/aut/register", upload.single("picture"), register);
+
+// routes
+app.use("/auth", authRoutes);
 
 const PORT = process.env.PORT || 6001;
 mongoose
