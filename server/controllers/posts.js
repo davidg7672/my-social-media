@@ -1,7 +1,14 @@
 import Post from "../models/Post.js";
 import User from "../models/User.js";
 
-// create
+/**
+ * @function createPost
+ * ---------------------
+ * Creates a new post from user input.
+ * - Retrieves user data to include name, location, and profile picture.
+ * - Initializes likes and comments as empty objects.
+ * - Returns all posts after saving the new one.
+ */
 export const createPost = async (req, res) => {
     try {
         const { userId, description, picturePath } = req.body;
@@ -26,6 +33,11 @@ export const createPost = async (req, res) => {
     }
 };
 
+/**
+ * @function getFeedPosts
+ * -----------------------
+ * Retrieves all posts in the database (used for main feed).
+ */
 export const getFeedPosts = async (req, res) => {
     try {
         const post = await Post.find();
@@ -35,6 +47,12 @@ export const getFeedPosts = async (req, res) => {
     }
 };
 
+/**
+ * @function getUserPosts
+ * -----------------------
+ * Retrieves all posts created by a specific user.
+ * - `userId` is extracted from the request URL params.
+ */
 export const getUserPosts = async (req, res) => {
     try {
         const { userId } = req.params;
@@ -45,6 +63,14 @@ export const getUserPosts = async (req, res) => {
     }
 };
 
+/**
+ * @function likePost
+ * -------------------
+ * Toggles the like status of a post for a given user.
+ * - Adds userId to the `likes` map if not liked.
+ * - Removes userId if already liked.
+ * - Returns the updated post.
+ */
 export const likePost = async (req, res) => {
     try {
         const { id } = req.params;

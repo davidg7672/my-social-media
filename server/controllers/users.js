@@ -1,6 +1,12 @@
 import User from "../models/User.js";
 
-// read
+/**
+ * @function getUser
+ * -----------------
+ * Retrieves a user by their ID.
+ * - ID is pulled from the request URL parameters.
+ * - Returns the full user document.
+ */
 export const getUser = async (req, res) => {
     try {
         const { id } = req.params;
@@ -11,6 +17,13 @@ export const getUser = async (req, res) => {
     }
 };
 
+/**
+ * @function getUserFriends
+ * ------------------------
+ * Retrieves a user's friends as a list of user objects.
+ * - Gets the user by ID and loads each friend by ID.
+ * - Returns a formatted list of friend info (without sensitive data).
+ */
 export const getUserFriends = async (req, res) => {
     try {
         const { id } = req.params;
@@ -45,6 +58,14 @@ export const getUserFriends = async (req, res) => {
     }
 };
 
+/**
+ * @function addRemoveFriend
+ * -------------------------
+ * Adds or removes a friend relationship between two users.
+ * - If `friendId` already exists in user's friends, it is removed (and vice versa).
+ * - Otherwise, both users are added to each other's friends list.
+ * - Returns the updated friend list for the user.
+ */
 export const addRemoveFriend = async (req, res) => {
     try {
         const { id, friendId } = req.params;

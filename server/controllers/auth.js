@@ -2,7 +2,15 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
-// registering user
+/**
+ * @function register
+ * ------------------
+ * Registers a new user in the system.
+ * - Hashes the password using bcrypt.
+ * - Initializes random values for viewedProfile and impressions.
+ * - Saves the new user to the database.
+ * - Returns the created user in the response.
+ */
 export const register = async (req, res) => {
     try {
         const {
@@ -18,6 +26,7 @@ export const register = async (req, res) => {
 
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
+
         const newUser = new User({
             firstName,
             lastName,
@@ -37,7 +46,14 @@ export const register = async (req, res) => {
     }
 };
 
-// logging in
+/**
+ * @function login
+ * ---------------
+ * Authenticates an existing user.
+ * - Verifies the user's email and password.
+ * - Generates a JWT token upon successful login.
+ * - Returns the token and user data (without password).
+ */
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body;
