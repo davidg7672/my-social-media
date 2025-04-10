@@ -6,6 +6,11 @@ import { setFriends } from "../state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 
+/**
+ * Friend Component
+ * Displays a user card with their name, subtitle, and profile image.
+ * Includes a button to add or remove the user from the current user's friends list.
+ */
 const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -23,6 +28,11 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
     const friends = Array.isArray(friendsData) ? friendsData : [];
 
     const isFriend = friends.find((friend) => friend._id === friendId);
+
+    /**
+     * Patch friend used in order to keep track of status with user.
+     * Sends a patch request to server and updates the Redux Store
+     */
 
     const patchFriend = async () => {
         const response = await fetch(
@@ -67,6 +77,8 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
                     </Typography>
                 </Box>
             </FlexBetween>
+
+            {/* Icon Button that handles logic for removing and adding friends */}
             <IconButton
                 onClick={() => patchFriend()}
                 sx={{ backgroundColor: primaryLight, p: "0.6rem" }}

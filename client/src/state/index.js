@@ -1,15 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// initial state of teh auth state
 const initialState = {
-    mode: "light",
-    user: null,
-    token: null,
-    posts: [],
+    mode: "light", // light mode
+    user: null, // logged in user object
+    token: null, // auth token
+    posts: [], // array to hold the posts
 };
 
+// creating a slice fo reduce state for authentication and app-level info
 export const authSlice = createSlice({
+    // slice name
     name: "auth",
     initialState,
+
+    // reducers used to handle changes to teh state based on dispatched actions
     reducers: {
         setMode: (state) => {
             state.mode = state.mode === "light" ? "dark" : "light";

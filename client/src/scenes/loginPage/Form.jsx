@@ -10,9 +10,13 @@ import {
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
+
+// Routing and Redux
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../../state";
+
+// file upload utility and customer layout component
 import Dropzone from "react-dropzone";
 import FlexBetween from "../../components/FlexBetween";
 
@@ -47,7 +51,10 @@ const initialValuesLogin = {
 };
 
 const Form = () => {
+    // Track which form is active
     const [pageType, setPageType] = useState("login");
+
+    // responsive check
     const { palette } = useTheme();
     const dispatch = useDispatch();
     const navigate = useNavigate();
