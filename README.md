@@ -31,8 +31,8 @@ My Social uses the following technologies
     ```sh
     cd server
     npm i
-    npm i express cors bcrypt body-parser cors dotenv helmet jsonwebtoken mongoose morgan multer multer-gridfs-storage
-    node server.js
+    npm i express cors bcrypt body-parser cors dotenv helmet jsonwebtoken mongoose morgan multer multer-gridfs-storage nodemon
+    nodemon server.js
     ```
 
 3. **Frontend Setup**:
