@@ -12,6 +12,16 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "../../state";
 
+/**
+ * PostWidget component
+ *
+ * Displays a single post, including:
+ * - User info (via Friend component)
+ * - Description, optional image
+ * - Like button with count and toggle
+ * - Comments section toggle
+ * - Share button (non-functional)
+ */
 const PostWidget = ({
     postId,
     postUserId,

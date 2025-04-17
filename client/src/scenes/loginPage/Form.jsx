@@ -42,7 +42,7 @@ const initialValuesRegister = {
     password: "",
     location: "",
     occupation: "",
-    picture: "",
+    picture: null,
 };
 
 const initialValuesLogin = {
@@ -114,9 +114,11 @@ const Form = () => {
 
     return (
         <Formik
+            key={pageType}
             onSubmit={handleFormSubmit}
             initialValues={isLogin ? initialValuesLogin : initialValuesRegister}
             validationSchema={isLogin ? loginSchema : registerSchema}
+            enableReinitialize={true}
         >
             {({
                 values,
@@ -126,7 +128,7 @@ const Form = () => {
                 handleChange,
                 handleSubmit,
                 setFieldValue,
-                resetForm,
+                // resetForm,
             }) => (
                 <form onSubmit={handleSubmit}>
                     <Box
@@ -234,10 +236,10 @@ const Form = () => {
                                                 ) : (
                                                     <FlexBetween>
                                                         <Typography>
-                                                            {
-                                                                values.picture
-                                                                    .name
-                                                            }
+                                                            {values.picture
+                                                                ? values.picture
+                                                                      .name
+                                                                : ""}
                                                         </Typography>
                                                         <EditOutlinedIcon />
                                                     </FlexBetween>
@@ -294,8 +296,11 @@ const Form = () => {
                         </Button>
                         <Typography
                             onClick={() => {
-                                setPageType(isLogin ? "register" : "login");
-                                resetForm();
+                                // setPageType(isLogin ? "register" : "login");
+                                // resetForm();
+                                setPageType((prev) =>
+                                    prev === "login" ? "register" : "login"
+                                );
                             }}
                             sx={{
                                 textDecoration: "underline",

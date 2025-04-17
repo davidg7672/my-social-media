@@ -24,15 +24,12 @@ const FriendListWidget = ({ userId }) => {
             dispatch(setFriends({ friends: data }));
         } catch (error) {
             console.error("Error fetching friends:", error);
-            // Handle error appropriately
         }
     };
 
     useEffect(() => {
-        if (userId && token) {
-            getFriends();
-        }
-    }, [userId, token]); // Add proper dependencies
+        getFriends();
+    }, []);
 
     return (
         <WidgetWrapper>

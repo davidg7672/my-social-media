@@ -3,10 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPosts } from "../../state";
 import PostWidget from "./PostWidget";
 
+/**
+ * PostsWidget component
+ *
+ * Displays a list of posts, either all posts or just those from a specific user,
+ * depending on whether `isProfile` is true.
+ *
+ * - On initial render, it fetches the appropriate set of posts from the backend.
+ * - Uses Redux to manage and retrieve posts from global state.
+ */
 const PostsWidget = ({ userId, isProfile = false }) => {
     const dispatch = useDispatch();
-    const posts = useSelector((state) => state.posts);
-    const token = useSelector((state) => state.token);
+    const posts = useSelector((state) => state.auth.posts);
+    const token = useSelector((state) => state.auth.state);
 
     const getPosts = async () => {
         const response = await fetch("http://localhost:3001/posts", {
@@ -35,7 +44,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
         } else {
             getPosts();
         }
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <>
