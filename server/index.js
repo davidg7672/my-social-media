@@ -56,11 +56,37 @@ app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
 
 const PORT = process.env.PORT || 6001;
+
+let isShuttingDown = false;
+
 mongoose
     .connect(process.env.MONGO_URL)
     .then(async () => {
-        app.listen(PORT, () => console.log(`Server Port ${PORT}`));
         await mongoose.connection.db.dropDatabase();
+        app.listen(PORT, () => console.log(`Server Port ${PORT}`));
+        await User.insertMany(users);
+        await Post.insertMany(posts);
+        console.log("Sample Data Injected");
+
+        const shutdown = async () => {
+            if (isShuttingDown) return;
+            isShuttingDown = true;
+
+            console.log("\nShutting down, dropping database...");
+            await mongoose.connection.db.dropDatabase();
+            console.log("Database dropped.");
+            process.exit(0);
+        };
+
+        // Ctrl+C
+        process.on("SIGINT", shutdown);
+        // process kill
+        process.on("SIGTERM", shutdown);
+        // Nodemon restart
+        process.on("SIGUSR2", async () => {
+            await shutdown();
+            process.kill(process.pid, "SIGUSR2");
+        });
     })
     .catch((error) => {
         console.log(`${error} did not connect`);
